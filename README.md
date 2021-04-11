@@ -10,7 +10,9 @@
 
 ### What is Snooker ?
 
-@todo
+Following [Wikipedia's definition](https://en.wikipedia.org/wiki/Snooker):
+
+ > Snooker (pronounced UK: /ˈsnuːkər/, US: /ˈsnʊkər/)[2][3] is a cue sport that was first played by British Army officers stationed in India in the second half of the 19th century. It is played on a rectangular table covered with a green cloth (or "baize"), with six pockets: one at each corner and one in the middle of each long side. Using a cue stick, the players[a] take turns to strike the white "cue ball" to pot the other twenty-one snooker balls in the correct sequence, accumulating points for each pot. An individual frame of snooker is won by the player who has scored the most points by the end of the frame. A snooker match ends with one of the players having won a predetermined number of frames, thus winning the match.
 
 ## Getting started
 
@@ -38,9 +40,7 @@ print(player)
 
 Following [snooker.org API documentation](http://api.snooker.org/):
 
-```baazar
-If you plan to collect data automatically please contact us so we can agree on what you should put in the header. E.g. "X-Requested-By": "PetersAndroidApp".
-```
+> If you plan to collect data automatically please contact us so we can agree on what you should put in the header. E.g. "X-Requested-By": "PetersAndroidApp".
 
 To achieve this, simply pass appropriate headers when instantiating the client:
 
