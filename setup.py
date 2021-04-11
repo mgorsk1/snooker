@@ -18,6 +18,7 @@ setup(
     version=__version__,
     description='Snooker Data API',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://www.github.com/mgorsk1/snooker',
     maintainer='mgorsk1',
     maintainer_email='gorskimariusz13@gmail.com',
