@@ -1,0 +1,59 @@
+name: 'Release'
+
+on: [workflow_dispatch]
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Semantic Versioning
+        id: versioning
+        run: |
+          pip install python-semantic-release==7.15.0 auto-changelog==0.5.1
+
+          export NEXT_VERSION=$(semantic-release print-version --next)
+          export CURRENT_VERSION=$(semantic-release print-version --current)
+
+          echo ::set-output name=next_version::$NEXT_VERSION
+          echo "version change: $CURRENT_VERSION > $NEXT_VERSION"
+
+          git tag $NEXT_VERSION
+          auto-changelog --stdout \
+            --title 'History of changes' \
+            --stopping-commit $NEXT_VERSION > HISTORY.md
+
+          auto-changelog --stdout \
+            --stopping-commit $NEXT_VERSION \
+            --starting-commit $CURRENT_VERSION | tail -n +5 | sed -n "1,/##\s${CURRENT_VERSION}/ p" | head -n -1 > CHANGELOG.md
+          git tag -d $NEXT_VERSION
+
+          sed -i "s/^__version__.*/__version__ = '$NEXT_VERSION'/g" setup.py
+
+          git config user.name mgorsk1
+          git config user.email gorskimariusz13@gmail.com
+
+          git add setup.py CHANGELOG.md HISTORY.md && git commit -m "release: $NEXT_VERSION" && git push
+
+          echo ::set-output name=latest_sha::$(git rev-parse HEAD)
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ steps.versioning.outputs.latest_sha }}
+      - name: Create Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.versioning.outputs.next_version }}
+          release_name: Release ${{ steps.versioning.outputs.next_version }}
+          body_path: ./CHANGELOG.md
+          commitish: ${{ steps.versioning.outputs.latest_sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
