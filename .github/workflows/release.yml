@@ -17,7 +17,7 @@ jobs:
       - name: Semantic Versioning
         id: versioning
         run: |
-          pip install python-semantic-release==7.15.0 auto-changelog==0.5.1
+          pip install python-semantic-release==7.15.0 auto-changelog==0.5.3
 
           export NEXT_VERSION=$(semantic-release print-version --next)
           export CURRENT_VERSION=$(semantic-release print-version --current)
