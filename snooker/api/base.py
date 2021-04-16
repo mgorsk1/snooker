@@ -1,6 +1,6 @@
 import logging
 from abc import abstractmethod
-from typing import List, Optional, Type, Union  # noqa
+from typing import Any, List, Optional, Type, Union  # noqa
 
 import requests
 
@@ -21,7 +21,7 @@ class BaseApi:
         pass
 
     @staticmethod
-    def _unmarshal(data: dict, model: Type[JsonModel]) -> Optional[List[Type[JsonModel]]]:
+    def _unmarshal(data: dict, model: Type[JsonModel]) -> Any:
         try:
             return model.schema().load(data, many=True)
         except Exception:
@@ -29,7 +29,7 @@ class BaseApi:
 
             return None
 
-    def _get_one_dimensional(self, params: dict, model: Type[JsonModel]) -> Optional[Type[JsonModel]]:
+    def _get_one_dimensional(self, params: dict, model: Type[JsonModel]) -> Any:
         result = None
 
         data = self._make_request(params)
@@ -42,7 +42,7 @@ class BaseApi:
         else:
             return result[0]
 
-    def _get_two_dimensional(self, params: dict, model: Type[JsonModel]) -> Optional[List[Type[JsonModel]]]:
+    def _get_two_dimensional(self, params: dict, model: Type[JsonModel]) -> Any:
         result = None
 
         data = self._make_request(params)
