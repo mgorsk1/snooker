@@ -1,5 +1,13 @@
 # History of changes
 
+## 0.4.0 (2021-04-16)
+
+#### New Features
+
+* Improve typing
+
+Full set of changes: [`0.3.0...0.4.0`](https://github.com/mgorsk1/snooker/compare/0.3.0...0.4.0)
+
 ## 0.3.0 (2021-04-11)
 
 
