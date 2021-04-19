@@ -33,4 +33,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           REQUIREMENTS: requirements-doc.txt
-          PYTHON_PATH: /github/workspace
+          PYTHON_PATH: /github/workspace:/home/runner/work/snooker/snooker
