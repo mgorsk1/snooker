@@ -28,10 +28,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Setup python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
+      - name: Debug
+        run: |
+          echo $PYTHONPATH
+          echo $GITHUB_WORKSPACE
       - name: Deploy Docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
