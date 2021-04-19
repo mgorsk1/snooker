@@ -10,8 +10,8 @@ jobs:
   test-unit:
     runs-on: ubuntu-18.04
     strategy:
-        matrix:
-          python-version: ['3.6.x', '3.7.x', '3.8.x']
+      matrix:
+        python-version: ['3.6.x', '3.7.x', '3.8.x']
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -23,3 +23,14 @@ jobs:
         run: make setup_dev test
       - name: Codecov
         uses: codecov/codecov-action@v1
+  publish-docs:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Deploy Docs
+        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          REQUIREMENTS: requirements-doc.txt
+          PYTHON_PATH: /github/workspace:/home/runner/work/snooker/snooker

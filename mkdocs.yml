@@ -1,0 +1,15 @@
+site_name: "Snooker"
+
+theme:
+  name: "material"
+
+plugins:
+- search
+- mkdocstrings:
+    default_handler: python
+
+nav:
+  - 'Welcome': 'README.md'
+  - 'APIs':
+    - 'Snooker.org': 'snooker_org.md'
+  - 'History': 'HISTORY.md'
