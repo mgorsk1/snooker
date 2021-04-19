@@ -28,12 +28,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Debug
-        run: |
-          echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-          echo $GITHUB_ENV
       - name: Deploy Docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           REQUIREMENTS: requirements-doc.txt
+          PYTHON_PATH: /github/workspace
