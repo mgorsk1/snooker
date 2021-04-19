@@ -30,8 +30,8 @@ jobs:
         uses: actions/checkout@v1
       - name: Debug
         run: |
-          echo $PYTHONPATH
-          echo $GITHUB_WORKSPACE
+          echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+          echo $GITHUB_ENV
       - name: Deploy Docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
