@@ -31,3 +31,6 @@ class Player(JsonModel):
     FirstSeasonAsPro: int
     LastSeasonAsPro: int
     Info: str
+    NumRankingTitles: int
+    NumMaximums: int
+    Died: str

@@ -21,6 +21,7 @@ class Match(JsonModel):
     WinnerID: int
     Unfinished: bool
     OnBreak: bool
+    Status: int
     WorldSnookerID: int
     LiveUrl: str
     DetailsUrl: str
@@ -39,3 +40,5 @@ class Match(JsonModel):
     Sessions: str
     Note: str
     ExtendedNote: str
+    HeldOver: bool
+    StatsURL: str

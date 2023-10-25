@@ -1,4 +1,4 @@
-from typing import List, Optional, Type  # noqa
+from typing import List, Optional, Type, Literal  # noqa
 
 from snooker.api.base import BaseApi
 from snooker.models.snooker_org.event import Event
@@ -121,7 +121,7 @@ class SnookerOrgApi(BaseApi):
 
         return self._get_two_dimensional(params, model)
 
-    def players(self, status: Optional[str], season: Optional[int]) -> Optional[List[Player]]:
+    def players(self, status: Literal['a', 'p'], season: Optional[int]) -> Optional[List[Player]]:
         """
         Retrieve list of all players in the tour in given season.
 
@@ -147,7 +147,7 @@ class SnookerOrgApi(BaseApi):
 
         return self._get_two_dimensional(params, model)
 
-    def round_info(self, event_id: int) -> Optional[List[Round]]:
+    def round_info_by_event(self, event_id: int) -> Optional[List[Round]]:
         """
         Retrieve round info for particular event.
 
@@ -155,6 +155,18 @@ class SnookerOrgApi(BaseApi):
         :return: List of rounds (if available)
         """
         params = {'t': 12, 'e': event_id}
+        model = Round
+
+        return self._get_two_dimensional(params, model)
+
+    def round_info_by_season(self, season: Optional[int]) -> Optional[List[Round]]:
+        """
+        Retrieve round info for particular season.
+
+        :param season: ID of a season for which data will be collected (current season if no season provided)
+        :return: List of rounds (if available)
+        """
+        params = {'t': 12, 's': season}
         model = Round
 
         return self._get_two_dimensional(params, model)
@@ -168,5 +180,42 @@ class SnookerOrgApi(BaseApi):
         """
         params = {'t': 13, 'e': event_id}
         model = Seeding
+
+        return self._get_two_dimensional(params, model)
+
+    def upcoming_matches(self) -> Optional[List[Match]]:
+        """
+        Retrieve upcoming matches.
+
+        :return: List of upcoming matches (if available)
+        """
+        params = {'t': 14}
+        model = Match
+
+        return self._get_two_dimensional(params, model)
+
+    def results_from_last_days(self, number_of_days: int = 0) -> Optional[List[Match]]:
+        """
+        Retrieve results from the last few days. There is a limit of 500 results returned.
+
+        :param number_of_days: number of last days to retrieve results for
+        :return: List of matches (If available)
+        """
+        params = {'t': 15, 'ds': number_of_days}
+        model = Match
+
+        return self._get_two_dimensional(params, model)
+
+    def head_to_head(self, player_1_id: int, player_2_id: int, season: Optional[int]) -> Optional[List[Match]]:
+        """
+        Retrieve info regarding a player.
+
+        :param player_1_id: ID of a first player
+        :param player_2_id: ID of a second player
+        :param season: Season for which data is collected. Use -1 for all seasons (current season if no season provided).
+        :return: List of matches (if available)
+        """
+        params = {'p1': player_1_id, 'p2': player_2_id, 's': season}
+        model = Match
 
         return self._get_two_dimensional(params, model)

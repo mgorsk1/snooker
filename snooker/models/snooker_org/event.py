@@ -46,3 +46,4 @@ class Event(JsonModel):
     CommonNote: str
     DefendingChampion: int
     PreviousEdition: int
+    Tour: str
