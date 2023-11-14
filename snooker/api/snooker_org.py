@@ -212,7 +212,7 @@ class SnookerOrgApi(BaseApi):
 
         :param player_1_id: ID of a first player
         :param player_2_id: ID of a second player
-        :param season: Season for which data is collected. Use -1 for all seasons (current season if no season provided).
+        :param season: Season for which data is collected. Use -1 for all seasons (current if no season provided).
         :return: List of matches (if available)
         """
         params = {'p1': player_1_id, 'p2': player_2_id, 's': season}
