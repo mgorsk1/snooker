@@ -10,7 +10,6 @@ from snooker.models.snooker_org.ranking import Ranking
 from snooker.models.snooker_org.round import Round
 from snooker.models.snooker_org.seeding import Seeding
 
-
 PlayerStatus = Literal['a', 'p']
 
 
