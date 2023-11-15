@@ -3,3 +3,4 @@ isort
 mypy
 pytest
 pytest-cov
+types-requests

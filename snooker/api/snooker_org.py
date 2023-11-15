@@ -1,4 +1,6 @@
-from typing import List, Optional, Type, Literal  # noqa
+from typing import List, Optional
+
+from typing_extensions import Literal
 
 from snooker.api.base import BaseApi
 from snooker.models.snooker_org.event import Event
@@ -7,6 +9,8 @@ from snooker.models.snooker_org.player import Player
 from snooker.models.snooker_org.ranking import Ranking
 from snooker.models.snooker_org.round import Round
 from snooker.models.snooker_org.seeding import Seeding
+
+PlayerStatus = Literal['a', 'p']
 
 
 class SnookerOrgApi(BaseApi):
@@ -121,7 +125,7 @@ class SnookerOrgApi(BaseApi):
 
         return self._get_two_dimensional(params, model)
 
-    def players(self, status: Literal['a', 'p'], season: Optional[int]) -> Optional[List[Player]]:
+    def players(self, status: PlayerStatus, season: Optional[int]) -> Optional[List[Player]]:
         """
         Retrieve list of all players in the tour in given season.
 
@@ -212,7 +216,7 @@ class SnookerOrgApi(BaseApi):
 
         :param player_1_id: ID of a first player
         :param player_2_id: ID of a second player
-        :param season: Season for which data is collected. Use -1 for all seasons (current season if no season provided).
+        :param season: Season for which data is collected. Use -1 for all seasons (current if no season provided).
         :return: List of matches (if available)
         """
         params = {'p1': player_1_id, 'p2': player_2_id, 's': season}
